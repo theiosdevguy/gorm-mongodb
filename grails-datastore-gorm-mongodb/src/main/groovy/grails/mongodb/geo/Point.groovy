@@ -36,6 +36,17 @@ class Point extends Shape implements GeoJSON{
      * @param x The x position
      * @param y The y position
      */
+    Point(double x, double y) {
+        this.x = x
+        this.y = y
+        this.z = 0
+    }
+
+    /**
+     * Construct a point for the given x and y coordinates
+     * @param x The x position
+     * @param y The y position
+     */
     Point(double x, double y, double z) {
         this.x = x
         this.y = y
