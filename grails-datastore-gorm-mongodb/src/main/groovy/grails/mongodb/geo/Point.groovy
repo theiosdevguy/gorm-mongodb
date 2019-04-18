@@ -29,7 +29,7 @@ class Point extends Shape implements GeoJSON{
     /**
      * The x and y values that indicate the location of the point
      */
-    final double x, y
+    final double x, y, z
 
     /**
      * Construct a point for the given x and y coordinates
@@ -39,20 +39,32 @@ class Point extends Shape implements GeoJSON{
     Point(double x, double y) {
         this.x = x
         this.y = y
+        this.z = 0
+    }
+
+    /**
+     * Construct a point for the given x and y coordinates
+     * @param x The x position
+     * @param y The y position
+     */
+    Point(double x, double y, double z) {
+        this.x = x
+        this.y = y
+        this.z = z
     }
 
     /**
      * @return An array representation of the point
      */
-    double[] asArray() { [x,y] as double[] }
+    double[] asArray() { [x,y,z] as double[] }
 
     /**
      * @return A list representation of the point
      */
-    List<Double> asList() { [ x, y] }
+    List<Double> asList() { [ x, y, z] }
 
     @Override
-    String toString() { "[$x,$y]" }
+    String toString() { "[$x,$y, $z]" }
 
     /**
      * Construct a point for the given x and y values
@@ -61,8 +73,8 @@ class Point extends Shape implements GeoJSON{
      * @param y The y value
      * @return The Point
      */
-    static Point valueOf(Number x, Number y) {
-        new Point(x.doubleValue(), y.doubleValue())
+    static Point valueOf(Number x, Number y, Number z) {
+        new Point(x.doubleValue(), y.doubleValue(), z.doubleValue())
     }
 
     /**
@@ -72,11 +84,12 @@ class Point extends Shape implements GeoJSON{
      * @return A Point
      */
     static Point valueOf(List<Number> coords) {
-        if(coords.size() == 2) {
+        if(coords.size() == 3) {
             def x = coords.get(0)
             def y = coords.get(1)
-            if((x instanceof Number) && (y instanceof Number)) {
-                return new Point(x.doubleValue(), y.doubleValue())
+            def z = coords.get(2)
+            if((x instanceof Number) && (y instanceof Number) && (z instanceof Number)) {
+                return new Point(x.doubleValue(), y.doubleValue(), z.doubleValue())
             }
         }
         throw new IllegalArgumentException("Invalid coordinates: $coords")
