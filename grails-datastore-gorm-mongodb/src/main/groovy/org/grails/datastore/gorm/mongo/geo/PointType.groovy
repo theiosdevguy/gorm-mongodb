@@ -29,6 +29,9 @@ class PointType extends GeoJSONType<Point>{
     }
     @Override
     Point createFromCoords(List coords) {
-        return new Point((double)coords.get(0), (double)coords.get(1))
+        if (coords.size() == 3)
+            return new Point((double)coords.get(0), (double)coords.get(1), (double)coords.get(2))
+        else
+            return new Point((double)coords.get(0), (double)coords.get(1))
     }
 }
